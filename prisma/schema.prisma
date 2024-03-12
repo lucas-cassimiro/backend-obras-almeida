@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model addresses_works {
+  id     Int    @id @default(autoincrement())
+  name   String @db.VarChar(100)
+  street String @db.VarChar(255)
+  number Int
+  cep    String @db.VarChar(9)
+  city   String @db.VarChar(50)
+  state  String @db.VarChar(50)
+}
+
+model macroservices {
+  id           Int           @id @default(autoincrement())
+  macroservice String        @db.VarChar(100)
+  subservices  subservices[]
+}
+
+model subservices {
+  id            Int           @id @default(autoincrement())
+  macro_id      Int
+  subservice    String        @db.VarChar(100)
+  macroservices macroservices @relation(fields: [macro_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_macroservice")
+}
