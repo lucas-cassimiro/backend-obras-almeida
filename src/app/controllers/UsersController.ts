@@ -52,7 +52,7 @@ export class UsersController {
 
     async login(req: Request, res: Response) {
         try {
-            const { username, password_hash } = req.body;
+            const { username, password_hash } = req.body; 
 
             const findUser = await prisma.user.findUnique({
                 where: {

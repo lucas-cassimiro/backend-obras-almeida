@@ -13,4 +13,12 @@ export class PositionsController {
                 .send({ message: "Falha ao buscar dados dos cargos." });
         }
     }
+
+    // async create(req: Request, res: Response) {
+    //     try {
+            
+    //     } catch (error) {
+            
+    //     }
+    // }
 }
