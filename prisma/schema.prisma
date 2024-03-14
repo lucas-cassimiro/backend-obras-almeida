@@ -40,6 +40,9 @@ model Employee {
   payment_id       Int
   contract_id      Int
   position_id      Int
+  dinner           String   @db.VarChar(3)
+  lunch            String   @db.VarChar(3)
+  total_cost       Decimal  @db.Decimal(12, 2)
   contracts        Contract @relation(fields: [contract_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_contract")
   payments         Payment  @relation(fields: [payment_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_payment")
   positions        Position @relation(fields: [position_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_position")

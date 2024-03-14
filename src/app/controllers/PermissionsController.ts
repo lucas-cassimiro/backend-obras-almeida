@@ -6,7 +6,7 @@ export class PermissionsController {
     async index(_req: Request, res: Response) {
         try {
             const permissions = await prisma.permission.findMany();
-            return res.json({ permissions });
+            return res.json(permissions);
         } catch (error) {
             return res
                 .status(500)

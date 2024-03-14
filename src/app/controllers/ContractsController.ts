@@ -6,7 +6,7 @@ export class ContractsController {
     async index(_req: Request, res: Response) {
         try {
             const contracts = await prisma.contract.findMany();
-            return res.json({ contracts });
+            return res.json(contracts);
         } catch (error) {
             return res
                 .status(500)

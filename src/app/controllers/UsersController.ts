@@ -12,7 +12,6 @@ export class UsersController {
                 first_name,
                 last_name,
                 password_hash,
-                created_at,
                 permission_id,
             } = req.body;
 
@@ -32,7 +31,7 @@ export class UsersController {
                 first_name,
                 last_name,
                 password_hash,
-                created_at,
+                created_at: new Date(),
                 permission_id,
             };
 
@@ -44,15 +43,16 @@ export class UsersController {
                 data: newUser,
             });
 
-            return res.status(201).send({ message: "Cadastrado efetuado." });
+            return res.status(201).send({ message: "Cadastro efetuado." });
         } catch (error) {
+            console.log(error);
             return res.status(500).send({ message: "Falha ao cadastrar usuário." });
         }
     }
 
     async login(req: Request, res: Response) {
         try {
-            const { username, password_hash } = req.body; 
+            const { username, password_hash } = req.body;
 
             const findUser = await prisma.user.findUnique({
                 where: {

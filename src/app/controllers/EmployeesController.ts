@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 
 import prisma from "config/clientPrisma";
+import { EmployeeData } from "@src/interfaces/EmployeesInterface";
 
 export class EmployeesController {
     async index(_req: Request, res: Response) {
@@ -16,6 +17,10 @@ export class EmployeesController {
 
     async create(req: Request, res: Response) {
         try {
+            const { employee } = req.body;
+
+            console.log(employee);
+
             const {
                 ra,
                 first_name,
@@ -28,7 +33,10 @@ export class EmployeesController {
                 payment_id,
                 contract_id,
                 position_id,
-            } = req.body;
+                dinner,
+                lunch,
+                total_cost,
+            } = employee as EmployeeData;
 
             const employeeExistentInDatabase = await prisma.employee.findUnique({
                 where: {
@@ -46,19 +54,23 @@ export class EmployeesController {
                     ra,
                     first_name,
                     last_name,
+                    admission_date: new Date(admission_date),
                     alternative_name,
-                    admission_date,
                     salary,
                     lunch_cost,
                     ticket_cost,
                     payment_id,
                     contract_id,
                     position_id,
+                    dinner,
+                    lunch,
+                    total_cost,
                 },
             });
 
             return res.status(201).send({ message: "Cadastro efetuado." });
         } catch (error) {
+            console.log(error);
             return res
                 .status(500)
                 .send({ message: "Falha ao cadastrar funcionário." });

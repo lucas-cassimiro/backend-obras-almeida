@@ -5,8 +5,8 @@ import prisma from "config/clientPrisma";
 export class PositionsController {
     async index(_req: Request, res: Response) {
         try {
-            const positions = await prisma.contract.findMany();
-            return res.json({ positions });
+            const positions = await prisma.position.findMany();
+            return res.json(positions);
         } catch (error) {
             return res
                 .status(500)

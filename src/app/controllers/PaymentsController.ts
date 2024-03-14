@@ -5,8 +5,8 @@ import prisma from "config/clientPrisma";
 export class PaymentsController {
     async index(_req: Request, res: Response) {
         try {
-            const payments = await prisma.contract.findMany();
-            return res.json({ payments });
+            const payments = await prisma.payment.findMany();
+            return res.json(payments);
         } catch (error) {
             return res
                 .status(500)
