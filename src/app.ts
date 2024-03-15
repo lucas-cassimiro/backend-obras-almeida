@@ -9,6 +9,7 @@ import routerContracts from "./routes/contractsRoutes";
 import routerPayments from "./routes/paymentsRoutes";
 import routerPermissions from "./routes/permissionsRoutes";
 import routerSubservices from "./routes/subservicesRoutes";
+import routerWorksManagement from "./routes/worksManagementRoutes";
 
 export const app = express();
 export const port = 3333;
@@ -24,3 +25,4 @@ app.use("/employees", routerEmployees);
 app.use("/contracts", routerContracts);
 app.use("/payments", routerPayments);
 app.use("/permissions", routerPermissions);
+app.use("/worksManagement", routerWorksManagement);
