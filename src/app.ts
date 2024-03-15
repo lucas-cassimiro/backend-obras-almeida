@@ -10,6 +10,8 @@ import routerPayments from "./routes/paymentsRoutes";
 import routerPermissions from "./routes/permissionsRoutes";
 import routerSubservices from "./routes/subservicesRoutes";
 import routerWorksManagement from "./routes/worksManagementRoutes";
+import routerWorksAddress from "./routes/worksAddressRoutes";
+import routerPresenceControl from "./routes/presenceControlRoutes";
 
 export const app = express();
 export const port = 3333;
@@ -26,3 +28,5 @@ app.use("/contracts", routerContracts);
 app.use("/payments", routerPayments);
 app.use("/permissions", routerPermissions);
 app.use("/worksManagement", routerWorksManagement);
+app.use("/worksAddress", routerWorksAddress);
+app.use("/presence", routerPresenceControl);
