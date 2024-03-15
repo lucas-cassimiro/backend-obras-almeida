@@ -4,6 +4,7 @@ import { WorksManagementsController } from "@src/app/controllers/WorksManagement
 
 const worksManagementRoutes = Router();
 
+worksManagementRoutes.get("/:id", new WorksManagementsController().show);
 worksManagementRoutes.post("/", new WorksManagementsController().create);
 
 export default worksManagementRoutes;

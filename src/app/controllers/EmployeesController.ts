@@ -7,7 +7,7 @@ export class EmployeesController {
     async index(_req: Request, res: Response) {
         try {
             const employees = await prisma.employee.findMany();
-            return res.json({ employees });
+            return res.json(employees);
         } catch (error) {
             return res
                 .status(500)
