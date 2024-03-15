@@ -5,8 +5,16 @@ import prisma from "config/clientPrisma";
 export class WorksManagementsController {
     async create(req: Request, res: Response) {
         try {
-            const { name, street, number, cep, city, state, unidades_repeticao } =
-        req.body;
+            const { obra } = req.body;
+            const {
+                name,
+                cep,
+                street,
+                number,
+                city,
+                state,
+                unidades_repeticao,
+            } = obra;
 
             const existentWorkInDatabase = await prisma.addressWork.findUnique({
                 where: {
@@ -34,21 +42,17 @@ export class WorksManagementsController {
                 await prisma.workManagement.create({
                     data: {
                         obra_id: workId,
-                        place: unidade.local_repeticao,
-                        ambient: unidade.name,
-                        sub_id: unidade.sub_servico,
-                        quantity: 0
+                        place: unidade.place,
+                        ambient: unidade.ambient,
+                        sub_id: unidade.sub_id,
+                        quantity: 0,
                     },
                 });
             }
 
-
-            return res
-                .status(201)
-                .send({ message: "Obra cadastrada com sucesso." });
-
-
+            return res.status(201).send({ message: "Obra cadastrada com sucesso." });
         } catch (error) {
+            console.log(error);
             return res
                 .status(500)
                 .send({ message: "Erro ao cadastrar dados da obra." });
