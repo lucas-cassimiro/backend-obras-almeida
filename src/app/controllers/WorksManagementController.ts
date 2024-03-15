@@ -65,7 +65,8 @@ export class WorksManagementsController {
                         place: unidade.place,
                         ambient: unidade.ambient,
                         sub_id: unidade.sub_id,
-                        quantity: 0,
+                        quantity: 17,
+                        weight: 45,
                     },
                 });
             }
