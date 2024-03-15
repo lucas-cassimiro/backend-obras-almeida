@@ -3,38 +3,22 @@ import { Request, Response } from "express";
 import prisma from "config/clientPrisma";
 
 export class WorksManagementsController {
-    async show(req: Request, res: Response) {
-        const id: number = Number(req.params.id);
-
-        try {
-            const work = await prisma.workManagement.findMany({
-                where: {
-                    id,
-                },
-                include: {
-                    addresses_works: true,
-                    subservices: {
-                        include: {
-                            units: true,
-                            macroservices: true,
-                        },
-                    },
-                },
-            });
-
-            return res.json(work);
-        } catch (error) {
-            return res
-                .status(500)
-                .send({ message: "Falha ao buscar dados de gestão da obra." });
-        }
-    }
-
     async create(req: Request, res: Response) {
+        console.log('AAAAAAAAAAAAAAAAAAAA')
+        console.log(req.body)
         try {
             const { obra } = req.body;
-            const { name, cep, street, number, city, state, unidades_repeticao } =
-        obra;
+            const {
+                name,
+                cep,
+                street,
+                number,
+                city,
+                state,
+                unidades_repeticao,
+            } = obra;
+
+            parseInt
 
             const existentWorkInDatabase = await prisma.addressWork.findUnique({
                 where: {
