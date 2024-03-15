@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://postgres:root@localhost:5432/obrasalmeida"
 }
 
 model AddressWork {
@@ -48,7 +48,6 @@ model Employee {
   payments         Payment  @relation(fields: [payment_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_payment")
   positions        Position @relation(fields: [position_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_position")
 
-  @@unique(fields: [ra])
   @@map("employees")
 }
 
@@ -87,10 +86,10 @@ model Position {
 model Subservice {
   id            Int          @id @default(autoincrement())
   macro_id      Int
-  unit_id       Int
   subservice    String       @db.VarChar(100)
+  unit_id       Int?
   macroservices Macroservice @relation(fields: [macro_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_macroservice")
-  units         Unit         @relation(fields: [unit_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_unit")
+  units         Unit?        @relation(fields: [unit_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_unit")
 
   @@map("subservices")
 }
@@ -113,7 +112,6 @@ model User {
   permission_id Int
   permissions   Permission @relation(fields: [permission_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_permission")
 
-  @@unique(fields: [username])
   @@map("users")
 }
 
