@@ -8,13 +8,14 @@ datasource db {
 }
 
 model AddressWork {
-  id     Int    @id @default(autoincrement())
-  name   String @db.VarChar(100)
-  street String @db.VarChar(255)
-  number Int
-  cep    String @db.VarChar(9)
-  city   String @db.VarChar(50)
-  state  String @db.VarChar(50)
+  id             Int              @id @default(autoincrement())
+  name           String           @db.VarChar(100)
+  street         String           @db.VarChar(255)
+  number         Int
+  cep            String           @db.VarChar(9)
+  city           String           @db.VarChar(50)
+  state          String           @db.VarChar(50)
+  WorkManagement WorkManagement[]
 
   @@unique(fields: [cep])
   @@map("addresses_works")
@@ -85,12 +86,13 @@ model Position {
 }
 
 model Subservice {
-  id            Int          @id @default(autoincrement())
-  macro_id      Int
-  unit_id       Int
-  subservice    String       @db.VarChar(100)
-  macroservices Macroservice @relation(fields: [macro_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_macroservice")
-  units         Unit         @relation(fields: [unit_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_unit")
+  id             Int              @id @default(autoincrement())
+  macro_id       Int
+  unit_id        Int
+  subservice     String           @db.VarChar(100)
+  macroservices  Macroservice     @relation(fields: [macro_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_macroservice")
+  units          Unit             @relation(fields: [unit_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_unit")
+  WorkManagement WorkManagement[]
 
   @@map("subservices")
 }
@@ -118,12 +120,14 @@ model User {
 }
 
 model WorkManagement {
-  id       Int    @id @default(autoincrement())
-  obra_id  Int
-  place    String @db.VarChar(50)
-  ambient  String @db.VarChar(50)
-  sub_id   Int
-  quantity Int
+  id              Int         @id @default(autoincrement())
+  obra_id         Int
+  place           String      @db.VarChar(50)
+  ambient         String      @db.VarChar(50)
+  sub_id          Int
+  quantity        Int
+  subservices     Subservice  @relation(fields: [sub_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_subservice")
+  addresses_works AddressWork @relation(fields: [obra_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_work")
 
   @@map("works_managements")
 }
