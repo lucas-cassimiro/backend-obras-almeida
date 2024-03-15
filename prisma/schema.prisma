@@ -16,6 +16,7 @@ model AddressWork {
   city   String @db.VarChar(50)
   state  String @db.VarChar(50)
 
+  @@unique(fields: [cep])
   @@map("addresses_works")
 }
 
