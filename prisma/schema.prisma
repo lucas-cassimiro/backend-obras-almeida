@@ -97,6 +97,7 @@ model PresenceControl {
   employees       Employee    @relation(fields: [employee_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_employee")
   addresses_works AddressWork @relation(fields: [obra_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_work")
 
+  @@unique(fields: [obra_id])
   @@map("presence_controls")
 }
 

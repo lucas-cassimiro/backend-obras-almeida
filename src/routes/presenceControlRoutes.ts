@@ -4,6 +4,7 @@ import { PresenceControlController } from "@src/app/controllers/PresenceControlC
 
 const presenceControlRoutes = Router();
 
+presenceControlRoutes.get("/", new PresenceControlController().show);
 presenceControlRoutes.post("/", new PresenceControlController().create);
 
 export default presenceControlRoutes;
