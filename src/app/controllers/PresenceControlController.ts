@@ -95,6 +95,9 @@ export class PresenceControlController {
                     obra_id: selectValue,
                     presence_date: new Date(dateValue),
                 },
+                include: {
+                    employees: true,
+                },
             });
 
             const workManagement = await prisma.workManagement.findMany({
@@ -110,7 +113,7 @@ export class PresenceControlController {
                 },
             });
 
-            const groupedEmployeeInWork = groupDataByPlaceAndAmbient(employeeInWork);
+            // const groupedEmployeeInWork = groupDataByPlaceAndAmbient(employeeInWork);
             const groupedWorkManagement = groupDataByPlaceAndAmbient(workManagement);
 
             const sanitizedWorkManagement = groupedWorkManagement.map((item) => ({
@@ -127,8 +130,11 @@ export class PresenceControlController {
                 })),
             }));
 
+            // console.log(groupedEmployeeInWork);
+            console.log(sanitizedWorkManagement);
+
             return res.status(200).send({
-                employeeInWork: groupedEmployeeInWork,
+                employeeInWork,
                 workManagement: sanitizedWorkManagement,
             });
         } catch (error) {
