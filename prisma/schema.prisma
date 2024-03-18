@@ -8,15 +8,16 @@ datasource db {
 }
 
 model AddressWork {
-  id              Int               @id @default(autoincrement())
-  name            String            @db.VarChar(100)
-  street          String            @db.VarChar(255)
-  number          Int
-  cep             String            @db.VarChar(9)
-  city            String            @db.VarChar(50)
-  state           String            @db.VarChar(50)
-  WorkManagement  WorkManagement[]
-  PresenceControl PresenceControl[]
+  id                  Int                   @id @default(autoincrement())
+  name                String                @db.VarChar(100)
+  street              String                @db.VarChar(255)
+  number              Int
+  cep                 String                @db.VarChar(9)
+  city                String                @db.VarChar(50)
+  state               String                @db.VarChar(50)
+  WorkManagement      WorkManagement[]
+  PresenceControl     PresenceControl[]
+  ProductivityControl ProductivityControl[]
 
   @@unique(fields: [cep])
   @@map("addresses_works")
@@ -102,19 +103,30 @@ model PresenceControl {
 }
 
 model ProductivityControl {
-  id                Int            @id @default(autoincrement())
-  employee_id       Int
-  obra_id           Int
-  place             String         @db.VarChar(50)
-  sub_id            Int
-  quantity          Int
-  weight            Int
-  created_at        DateTime       @db.Date
-  employees         Employee       @relation(fields: [employee_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_employee")
-  subservices       Subservice     @relation(fields: [sub_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_subservice")
-  works_managements WorkManagement @relation(fields: [obra_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_work")
+  id               Int              @id @default(autoincrement())
+  employee_id      Int
+  obra_id          Int
+  place            String           @db.VarChar(50)
+  sub_id           Int
+  quantity         Int
+  weight           Int
+  created_at       DateTime         @db.Date
+  employees        Employee         @relation(fields: [employee_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_employee")
+  subservices      Subservice       @relation(fields: [sub_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_subservice")
+  addresses_works  AddressWork      @relation(fields: [obra_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_work")
+  quality_controls QualityControl[]
 
   @@map("productivity_controls")
+}
+
+model QualityControl {
+  id                    Int                 @id @default(autoincrement())
+  productivity_id       Int
+  nonconformity         String              @db.VarChar(3)
+  operation             String?             @db.VarChar(255)
+  productivity_controls ProductivityControl @relation(fields: [productivity_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_productivity")
+
+  @@map("quality_controls")
 }
 
 model Subservice {
@@ -162,7 +174,6 @@ model WorkManagement {
   weight                Int
   subservices           Subservice            @relation(fields: [sub_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_subservice")
   addresses_works       AddressWork           @relation(fields: [obra_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_work")
-  productivity_controls ProductivityControl[]
 
   @@map("works_managements")
 }

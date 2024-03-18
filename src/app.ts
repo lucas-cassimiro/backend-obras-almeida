@@ -12,6 +12,8 @@ import routerSubservices from "./routes/subservicesRoutes";
 import routerWorksManagement from "./routes/worksManagementRoutes";
 import routerWorksAddress from "./routes/worksAddressRoutes";
 import routerPresenceControl from "./routes/presenceControlRoutes";
+import routerProductivityControl from "./routes/productivityControlRoutes";
+import routerQualityControl from "./routes/qualityControlRoutes";
 
 export const app = express();
 export const port = 3333;
@@ -30,3 +32,5 @@ app.use("/permissions", routerPermissions);
 app.use("/worksManagement", routerWorksManagement);
 app.use("/worksAddress", routerWorksAddress);
 app.use("/presence", routerPresenceControl);
+app.use("/productivityControl", routerProductivityControl);
+app.use("/qualityControl", routerQualityControl);

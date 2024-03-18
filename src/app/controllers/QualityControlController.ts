@@ -2,4 +2,6 @@
 
 // import prisma from "config/clientPrisma";
 
-// export class QualityControlController {}
+export class QualityControlController {
+   
+}

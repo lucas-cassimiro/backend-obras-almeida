@@ -15,7 +15,7 @@ export class SubservicesController {
     }
     async show(req: Request, res: Response) {
         const id: number = Number(req.params.id);
-        console.log(id)
+        console.log(id);
         try {
             const subservices = await prisma.subservice.findMany({
                 include: {

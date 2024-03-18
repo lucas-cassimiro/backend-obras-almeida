@@ -113,7 +113,6 @@ export class PresenceControlController {
                 },
             });
 
-            // const groupedEmployeeInWork = groupDataByPlaceAndAmbient(employeeInWork);
             const groupedWorkManagement = groupDataByPlaceAndAmbient(workManagement);
 
             const sanitizedWorkManagement = groupedWorkManagement.map((item) => ({
@@ -129,9 +128,6 @@ export class PresenceControlController {
                     })),
                 })),
             }));
-
-            // console.log(groupedEmployeeInWork);
-            console.log(sanitizedWorkManagement);
 
             return res.status(200).send({
                 employeeInWork,
