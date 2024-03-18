@@ -15,6 +15,8 @@ export class ProductivityControlController {
                 created_at,
             } = req.body;
 
+            console.log(place);
+
             await prisma.productivityControl.create({
                 data: {
                     employee_id,
