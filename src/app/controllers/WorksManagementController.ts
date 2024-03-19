@@ -31,8 +31,6 @@ export class WorksManagementsController {
     }
 
     async create(req: Request, res: Response) {
-    // console.log('AAAAAAAAAAAAAAAAAAAA')
-    // console.log(req.body)
         try {
             const { obra } = req.body;
             const { name, cep, street, number, city, state, unidades_repeticao } =
