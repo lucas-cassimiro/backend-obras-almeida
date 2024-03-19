@@ -2,37 +2,51 @@ import { Request, Response } from "express";
 
 import prisma from "config/clientPrisma";
 
+interface RequestBodyItem {
+  workId: string;
+  presenceDate: string;
+  employees: number;
+  place: string;
+  ambient: string;
+  subId: number;
+  quantity: string;
+  weight: string;
+}
+
 export class ProductivityControlController {
     async create(req: Request, res: Response) {
         try {
-            const {
-                employee_id,
-                obra_id,
+            const { body } = req;
+
+            for (const {
+                workId,
+                presenceDate,
+                employees,
                 place,
-                sub_id,
+                ambient,
+                subId,
                 quantity,
                 weight,
-                created_at,
-            } = req.body;
-
-            console.log(place);
-
-            await prisma.productivityControl.create({
-                data: {
-                    employee_id,
-                    obra_id,
-                    place,
-                    sub_id,
-                    quantity,
-                    weight,
-                    created_at: new Date(created_at),
-                },
-            });
+            } of body as RequestBodyItem[]) {
+                await prisma.productivityControl.create({
+                    data: {
+                        obra_id: Number(workId),
+                        created_at: new Date(presenceDate),
+                        employee_id: Number(employees),
+                        place: place,
+                        ambient,
+                        sub_id: subId,
+                        quantity: Number(quantity),
+                        weight: Number(weight),
+                    },
+                });
+            }
 
             return res
                 .status(201)
                 .send({ message: "Registro efetuado com sucesso." });
         } catch (error) {
+            console.log(error);
             return res
                 .status(500)
                 .send({ message: "Erro ao cadastrar controle de produtividade." });
