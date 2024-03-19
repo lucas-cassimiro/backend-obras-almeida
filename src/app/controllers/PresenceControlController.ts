@@ -28,8 +28,8 @@ export class PresenceControlController {
     }
 
     async show(req: Request, res: Response) {
-        const selectValue: number = Number(req.query.select);
-        const dateValue: string = req.query.data as string;
+        const workId: number = Number(req.query.select);
+        const presenceDate: string = req.query.data as string;
 
         function groupDataByPlaceAndAmbient(data: any) {
             const result: any[] = [];
@@ -92,8 +92,8 @@ export class PresenceControlController {
         try {
             const employeeInWork = await prisma.presenceControl.findMany({
                 where: {
-                    obra_id: selectValue,
-                    presence_date: new Date(dateValue),
+                    obra_id: workId,
+                    presence_date: new Date(presenceDate),
                 },
                 include: {
                     employees: true,
@@ -102,7 +102,7 @@ export class PresenceControlController {
 
             const workManagement = await prisma.workManagement.findMany({
                 where: {
-                    obra_id: selectValue,
+                    obra_id: workId,
                 },
                 include: {
                     subservices: {
