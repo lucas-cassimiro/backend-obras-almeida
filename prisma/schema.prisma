@@ -111,6 +111,7 @@ model ProductivityControl {
   quantity         Int
   weight           Int
   created_at       DateTime         @db.Date
+  ambient          String           @db.VarChar(50)
   employees        Employee         @relation(fields: [employee_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_employee")
   subservices      Subservice       @relation(fields: [sub_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_subservice")
   addresses_works  AddressWork      @relation(fields: [obra_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_work")
@@ -165,15 +166,15 @@ model User {
 }
 
 model WorkManagement {
-  id                    Int                   @id @default(autoincrement())
-  obra_id               Int
-  place                 String                @db.VarChar(50)
-  ambient               String                @db.VarChar(50)
-  sub_id                Int
-  quantity              Int
-  weight                Int
-  subservices           Subservice            @relation(fields: [sub_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_subservice")
-  addresses_works       AddressWork           @relation(fields: [obra_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_work")
+  id              Int         @id @default(autoincrement())
+  obra_id         Int
+  place           String      @db.VarChar(50)
+  ambient         String      @db.VarChar(50)
+  sub_id          Int
+  quantity        Int
+  weight          Int
+  subservices     Subservice  @relation(fields: [sub_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_subservice")
+  addresses_works AddressWork @relation(fields: [obra_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_work")
 
   @@map("works_managements")
 }
